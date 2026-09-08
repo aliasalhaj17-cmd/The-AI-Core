@@ -1,0 +1,19 @@
+`json
+{
+  "short_name": "أوجن",
+  "name": "أوجن: الكيان الذكي",
+  "icons": [
+    {
+      "src": "https://cdn-icons-png.flaticon.com/512/2103/2103633.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ],
+  "start_url": "/The-AI-Core/",
+  "background_color": "#050505",
+  "display": "standalone",
+  "orientation": "portrait",
+  "scope": "/The-AI-Core/",
+  "theme_color": "#d4af37"
+}
