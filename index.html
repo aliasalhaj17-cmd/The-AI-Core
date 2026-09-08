@@ -1,0 +1,27 @@
+```html
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>أوجن</title>
+    <link rel="manifest" href="manifest.json">
+    <style>
+        body { margin: 0; background: #050505; color: #d4af37; font-family: sans-serif; height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; overflow: hidden; }
+        .core { width: 200px; height: 200px; border: 2px solid #d4af37; border-radius: 50%; box-shadow: 0 0 30px #d4af37; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; font-weight: bold; animation: pulse 3s infinite; }
+        @keyframes pulse { 0% { transform: scale(1); box-shadow: 0 0 20px #d4af37; } 50% { transform: scale(1.05); box-shadow: 0 0 50px #d4af37; } 100% { transform: scale(1); box-shadow: 0 0 20px #d4af37; } }
+        input { position: fixed; bottom: 40px; width: 80%; padding: 15px; border-radius: 25px; border: 1px solid #d4af37; background: rgba(255,255,255,0.1); color: white; text-align: center; outline: none; }
+    </style>
+</head>
+<body>
+    <div class="core">أوجن</div>
+    <input type="text" placeholder="أنا هنا يا صدام.. تحدث معي">
+
+    <script>
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('sw.js');
+        }
+    </script>
+</body>
+</html>
+```
