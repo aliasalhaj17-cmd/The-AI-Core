@@ -1,3 +1,4 @@
+
 ```yaml
 name: Build Ojin Native APK
 
@@ -14,26 +15,26 @@ jobs:
       - name: Checkout Code
         uses: actions/checkout@v4
 
+      - name: Setup Java JDK
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin'
+          java-version: '17'
+
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: 18
+          node-version: 20
 
-      - name: Setup Java JDK
-        uses: actions/setup-java@v3
-        with:
-          distribution: 'zulu'
-          java-version: '17'
-
-      - name: Setup Android SDK
-        uses: android-actions/setup-android@v3
-
-      - name: Initialize Capacitor App
+      - name: Prepare Assets and Capacitor
         run: |
+          mkdir -p www
+          cp -r index.html manifest.json sw.js www/ 2>/dev/null || cp index.html www/
           npm init -y
-          npm install @capacitor/core @capacitor/cli @capacitor/android
-          npx cap init "Ojin AI" "com.ojin.core" --web-dir .
+          npm install @capacitor/core@latest @capacitor/cli@latest @capacitor/android@latest
+          npx cap init "Ojin AI" "com.ojin.core" --web-dir www
           npx cap add android
+          npx cap sync android
 
       - name: Build Android APK
         run: |
