@@ -1,51 +1,39 @@
 ```yaml
-name: Build-Ojin-APK
+name: Build APK
 
 on:
   push:
-    branches:
-      - main
-      - master
   workflow_dispatch:
 
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout Code
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
 
-      - name: Setup Java JDK
-        uses: actions/setup-java@v4
+      - uses: actions/setup-java@v4
         with:
-          distribution: 'temurin'
-          java-version: '17'
+          distribution: temurin
+          java-version: 17
 
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
+      - uses: actions/setup-node@v4
         with:
-          node-version: '20'
+          node-version: 20
 
-      - name: Build Web Assets and Capacitor
+      - name: Build APK File
         run: |
           mkdir -p www
           cp index.html www/
-          if [ -f manifest.json ]; then cp manifest.json www/; fi
-          if [ -f sw.js ]; then cp sw.js www/; fi
           npm init -y
-          npm install @capacitor/core @capacitor/cli @capacitor/android
-          npx cap init "Ojin AI" "com.ojin.core" --web-dir www
+          npm i @capacitor/core @capacitor/cli @capacitor/android
+          npx cap init Ojin com.ojin.core --web-dir www
           npx cap add android
-
-      - name: Build Android APK
-        run: |
           cd android
           chmod +x gradlew
           ./gradlew assembleDebug --no-daemon
 
-      - name: Upload Ojin APK
-        uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v4
         with:
-          name: Ojin-AI-Core-APK
+          name: Ojin-App
           path: android/app/build/outputs/apk/debug/app-debug.apk
 ```
