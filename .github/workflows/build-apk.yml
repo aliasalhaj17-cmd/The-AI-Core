@@ -1,15 +1,16 @@
 ```yaml
-name: Build Ojin Native APK
+name: Build-Ojin-APK
 
 on:
   push:
-    branches: [ main, master ]
+    branches:
+      - main
+      - master
   workflow_dispatch:
 
 jobs:
   build:
     runs-on: ubuntu-latest
-
     steps:
       - name: Checkout Code
         uses: actions/checkout@v4
@@ -23,23 +24,24 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version: '20'
 
-      - name: Prepare Assets and Capacitor
+      - name: Build Web Assets and Capacitor
         run: |
           mkdir -p www
-          cp -r index.html manifest.json sw.js www/ 2>/dev/null || cp index.html www/
+          cp index.html www/
+          if [ -f manifest.json ]; then cp manifest.json www/; fi
+          if [ -f sw.js ]; then cp sw.js www/; fi
           npm init -y
-          npm install @capacitor/core@latest @capacitor/cli@latest @capacitor/android@latest
+          npm install @capacitor/core @capacitor/cli @capacitor/android
           npx cap init "Ojin AI" "com.ojin.core" --web-dir www
           npx cap add android
-          npx cap sync android
 
       - name: Build Android APK
         run: |
           cd android
           chmod +x gradlew
-          ./gradlew assembleDebug
+          ./gradlew assembleDebug --no-daemon
 
       - name: Upload Ojin APK
         uses: actions/upload-artifact@v4
