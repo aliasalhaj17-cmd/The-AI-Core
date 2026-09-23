@@ -26,17 +26,16 @@ jobs:
           packages: 'platform-tools platforms;android-35 build-tools;35.0.0'
           accept-android-sdk-licenses: true
 
-      - name: Install Gradle 8.9.2
-        run: |
-          wget -q https://services.gradle.org/distributions/gradle-8.9.2-bin.zip
-          sudo unzip -q gradle-8.9.2-bin.zip -d /opt
-          echo "/opt/gradle-8.9.2/bin" >> "$GITHUB_PATH"
+      - name: Setup Gradle 8.9
+        uses: gradle/actions/setup-gradle@v4
+        with:
+          gradle-version: '8.9'
 
       - name: Generate Gradle wrapper if missing
         working-directory: android
         run: |
           if [ ! -f gradlew ]; then
-            gradle wrapper --gradle-version 8.9.2
+            gradle wrapper --gradle-version 8.9
           fi
 
       - name: Build debug APK
