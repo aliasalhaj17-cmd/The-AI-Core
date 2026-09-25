@@ -1,383 +1,613 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-  <title>أوجن | الجوهرة الذكية</title>
-  <meta name="theme-color" content="#061421" />
-  <style>
-    :root {
-      --bg: #030b12;
-      --panel: rgba(13, 24, 34, 0.9);
-      --panel-strong: rgba(18, 32, 46, 0.96);
-      --glow: #7ee7ff;
-      --glow-2: #8a7dff;
-      --gold: #ffd166;
-      --text: #edf8ff;
-      --text-dim: #9dafc5;
-      --success: #57e7b5;
-      --danger: #ff6b7d;
-    }
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <meta name="theme-color" content="#071b2a" />
+    <title>أوجن | الجوهرة الذكية</title>
+    <style>
+      :root {
+        --bg: #030d16;
+        --bg-2: #071b2a;
+        --panel: rgba(11, 22, 31, 0.9);
+        --panel-strong: rgba(14, 28, 39, 0.95);
+        --card: rgba(19, 31, 42, 0.92);
+        --glow: #7ee7ff;
+        --glow-2: #8a7dff;
+        --gold: #ffd166;
+        --success: #57e7b5;
+        --text: #edf8ff;
+        --muted: #9db6c8;
+        --danger: #ff6b7d;
+        --line: rgba(126, 231, 255, 0.2);
+      }
 
-    * { box-sizing: border-box; margin: 0; padding: 0; font-family: "Tahoma", "Segoe UI", sans-serif; }
-    html, body { height: 100%; background: radial-gradient(circle at top, rgba(126,231,255,.12), transparent 30%), linear-gradient(180deg, #030b12, #02070d); color: var(--text); overflow: hidden; }
-    body { display: flex; flex-direction: column; }
+      * { box-sizing: border-box; }
+      html, body {
+        margin: 0;
+        height: 100%;
+        font-family: "Tahoma", "Segoe UI", sans-serif;
+        background: radial-gradient(circle at top, rgba(126, 231, 255, 0.12), transparent 28%), linear-gradient(180deg, var(--bg), #02070d);
+        color: var(--text);
+      }
 
-    .app { display: flex; flex-direction: column; height: 100%; }
+      body {
+        display: flex;
+        flex-direction: column;
+        overflow: hidden;
+      }
 
-    .topbar {
-      display: flex; align-items: center; justify-content: space-between;
-      padding: 16px 18px; background: rgba(9,17,25,.9);
-      border-bottom: 1px solid rgba(126,231,255,.15);
-      backdrop-filter: blur(10px);
-    }
+      .app {
+        display: flex;
+        flex-direction: column;
+        height: 100%;
+      }
 
-    .brand { display: flex; align-items: center; gap: 12px; }
-    .orb {
-      width: 28px; height: 28px; border-radius: 50%;
-      background: radial-gradient(circle at 30% 30%, #fff, #7ee7ff 35%, #6b8cff 100%);
-      box-shadow: 0 0 15px rgba(126,231,255,.8);
-      animation: pulse 2.7s infinite ease-in-out;
-    }
+      .topbar {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 16px 18px;
+        background: rgba(9, 17, 25, 0.9);
+        border-bottom: 1px solid var(--line);
+        backdrop-filter: blur(10px);
+      }
 
-    @keyframes pulse {
-      0%, 100% { transform: scale(0.94); opacity: 0.8; }
-      50% { transform: scale(1.08); opacity: 1; }
-    }
+      .brand {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+      }
 
-    .title h1 { font-size: 1rem; font-weight: 800; }
-    .title .status {
-      color: var(--glow); font-size: 0.72rem; margin-top: 2px;
-    }
+      .orb {
+        width: 28px;
+        height: 28px;
+        border-radius: 50%;
+        background: radial-gradient(circle at 30% 30%, #fff, #7ee7ff 35%, #6b8cff 100%);
+        box-shadow: 0 0 15px rgba(126, 231, 255, 0.8);
+        animation: pulse 2.7s infinite ease-in-out;
+      }
 
-    .title .status::before {
-      content: ""; display: inline-block; width: 8px; height: 8px;
-      border-radius: 50%; background: var(--success); margin-left: 6px;
-      box-shadow: 0 0 12px rgba(87,231,181,.9); vertical-align: middle;
-    }
+      @keyframes pulse {
+        0%, 100% { transform: scale(0.94); opacity: 0.8; }
+        50% { transform: scale(1.08); opacity: 1; }
+      }
 
-    .toolbar { display: flex; gap: 10px; align-items: center; }
-    .circle-btn {
-      width: 42px; height: 42px; border-radius: 50%; border: 1px solid rgba(126,231,255,.2);
-      background: rgba(255,255,255,.02); color: var(--text); font-size: 1rem; cursor: pointer;
-    }
+      .title h1 {
+        margin: 0;
+        font-size: 1rem;
+        font-weight: 800;
+      }
 
-    .main {
-      flex: 1; display: grid; grid-template-columns: minmax(0,1.3fr) minmax(280px,.7fr); gap: 12px;
-      padding: 12px; min-height: 0;
-    }
+      .title .status {
+        color: var(--glow);
+        font-size: 0.72rem;
+        margin-top: 2px;
+      }
 
-    .panel {
-      background: rgba(11,21,31,.9); border: 1px solid rgba(126,231,255,.18);
-      border-radius: 18px; overflow: hidden; box-shadow: 0 10px 18px rgba(0,0,0,.18);
-    }
+      .title .status::before {
+        content: "";
+        display: inline-block;
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        background: var(--success);
+        margin-left: 6px;
+        box-shadow: 0 0 12px rgba(87, 231, 181, 0.9);
+        vertical-align: middle;
+      }
 
-    .chat-panel { display: flex; flex-direction: column; min-height: 0; }
-    .avatar-zone {
-      position: relative; height: 180px; border-bottom: 1px solid rgba(126,231,255,.14);
-      overflow: hidden;
-      background: radial-gradient(circle at center, rgba(126,231,255,.16), transparent 35%), linear-gradient(180deg, rgba(7,16,22,.8), rgba(5,12,19,.98));
-    }
+      .toolbar {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
 
-    .avatar {
-      position: absolute; left: 50%; top: 16px; transform: translateX(-50%);
-      width: 48%; height: 130px; border-radius: 50% 50% 35% 35%;
-      background: radial-gradient(circle at center, rgba(255,255,255,.16), rgba(112,184,255,.05), transparent 60%);
-      border: 1px solid rgba(126,231,255,.25);
-      box-shadow: 0 0 30px rgba(126,231,255,.18), inset 0 0 20px rgba(255,255,255,.04);
-      animation: floatFace 6s ease-in-out infinite;
-    }
+      .circle-btn {
+        width: 42px;
+        height: 42px;
+        border-radius: 50%;
+        border: 1px solid rgba(126, 231, 255, 0.2);
+        background: rgba(255, 255, 255, 0.02);
+        color: var(--text);
+        font-size: 1rem;
+        cursor: pointer;
+        transition: transform 0.2s ease;
+      }
 
-    @keyframes floatFace {
-      0%, 100% { transform: translateX(-50%) translateY(0); }
-      50% { transform: translateX(-50%) translateY(-8px); }
-    }
+      .circle-btn:active { transform: scale(0.96); }
 
-    .avatar::before {
-      content: "";
-      position: absolute; inset: 18% 22% 52% 22%;
-      border-radius: 50%;
-      background: rgba(255,255,255,.03);
-      box-shadow: 0 0 0 2px rgba(255,255,255,.14), 0 -8px 18px rgba(126,231,255,.22);
-    }
+      .main {
+        flex: 1;
+        display: grid;
+        grid-template-columns: minmax(0, 1.3fr) minmax(260px, 0.7fr);
+        gap: 12px;
+        padding: 12px;
+        min-height: 0;
+      }
 
-    .eyes {
-      position: absolute; left: 26%; right: 26%; top: 34%;
-      display: flex; justify-content: space-between; align-items: center;
-      height: 18px; z-index: 3;
-    }
+      .panel {
+        background: rgba(11, 21, 31, 0.9);
+        border: 1px solid rgba(126, 231, 255, 0.18);
+        border-radius: 18px;
+        overflow: hidden;
+        box-shadow: 0 10px 18px rgba(0, 0, 0, 0.18);
+      }
 
-    .eye {
-      width: 14px; height: 14px; border-radius: 50%;
-      background: radial-gradient(circle at 35% 35%, #fff 0%, #9be4ff 18%, #1d81bf 38%, #05141d 100%);
-      box-shadow: 0 0 20px rgba(126,231,255,.9);
-      animation: blink 5s infinite;
-    }
+      .chat-panel {
+        display: flex;
+        flex-direction: column;
+        min-height: 0;
+      }
 
-    @keyframes blink {
-      0%, 46%, 48%, 100% { transform: scaleY(1); }
-      47% { transform: scaleY(0.1); }
-      49% { transform: scaleY(1); }
-    }
+      .hero {
+        position: relative;
+        height: 180px;
+        border-bottom: 1px solid rgba(126, 231, 255, 0.14);
+        overflow: hidden;
+        background: radial-gradient(circle at center, rgba(126, 231, 255, 0.16), transparent 35%), linear-gradient(180deg, rgba(7, 16, 22, 0.8), rgba(5, 12, 19, 0.98));
+      }
 
-    .smile {
-      position: absolute; left: 36%; right: 36%; top: 57%;
-      height: 8px; border-radius: 999px; border: 2px solid rgba(255,255,255,.7);
-      border-top: none; border-bottom: 2px solid rgba(255,255,255,.5);
-    }
+      .avatar {
+        position: absolute;
+        left: 50%;
+        top: 16px;
+        transform: translateX(-50%);
+        width: 48%;
+        height: 130px;
+        border-radius: 50% 50% 35% 35%;
+        background: radial-gradient(circle at center, rgba(255, 255, 255, 0.16), rgba(112, 184, 255, 0.05), transparent 60%);
+        border: 1px solid rgba(126, 231, 255, 0.25);
+        box-shadow: 0 0 30px rgba(126, 231, 255, 0.18), inset 0 0 20px rgba(255, 255, 255, 0.04);
+        animation: floatFace 6s ease-in-out infinite;
+      }
 
-    .chat-list {
-      flex: 1; overflow-y: auto; padding: 12px; display: flex; flex-direction: column; gap: 10px;
-    }
+      @keyframes floatFace {
+        0%, 100% { transform: translateX(-50%) translateY(0); }
+        50% { transform: translateX(-50%) translateY(-8px); }
+      }
 
-    .msg { display: flex; flex-direction: column; max-width: 85%; }
-    .msg.user { align-self: flex-start; }
-    .msg.ojin { align-self: flex-end; }
+      .avatar::before {
+        content: "";
+        position: absolute;
+        inset: 18% 22% 52% 22%;
+        border-radius: 50%;
+        background: rgba(255, 255, 255, 0.03);
+        box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.14), 0 -8px 18px rgba(126, 231, 255, 0.22);
+      }
 
-    .bubble {
-      padding: 12px 14px; border-radius: 18px; line-height: 1.7; font-size: 0.92rem;
-      background: rgba(14,24,35,.9); border: 1px solid rgba(126,231,255,.14);
-      color: var(--text); word-break: break-word;
-    }
+      .eyes {
+        position: absolute;
+        left: 26%;
+        right: 26%;
+        top: 34%;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        height: 18px;
+        z-index: 3;
+      }
 
-    .msg.user .bubble { background: rgba(255,255,255,.03); border-color: rgba(255,255,255,.08); }
-    .msg.ojin .bubble {
-      background: linear-gradient(135deg, rgba(20,39,54,.96), rgba(12,25,35,.96));
-      border-color: rgba(126,231,255,.2);
-    }
+      .eye {
+        width: 14px;
+        height: 14px;
+        border-radius: 50%;
+        background: radial-gradient(circle at 35% 35%, #fff 0%, #9be4ff 18%, #1d81bf 38%, #05141d 100%);
+        box-shadow: 0 0 20px rgba(126, 231, 255, 0.9);
+        animation: blink 5s infinite;
+      }
 
-    .composer {
-      display: flex; gap: 8px; align-items: center; padding: 10px 12px 12px;
-      border-top: 1px solid rgba(126,231,255,.18); background: rgba(8,18,25,.88);
-    }
+      @keyframes blink {
+        0%, 46%, 48%, 100% { transform: scaleY(1); }
+        47% { transform: scaleY(0.1); }
+        49% { transform: scaleY(1); }
+      }
 
-    .composer input {
-      flex: 1; border: 1px solid rgba(126,231,255,.2); background: rgba(255,255,255,.02);
-      border-radius: 22px; padding: 12px 16px; color: var(--text); font-size: 0.95rem; outline: none;
-    }
+      .smile {
+        position: absolute;
+        left: 36%;
+        right: 36%;
+        top: 57%;
+        height: 8px;
+        border-radius: 999px;
+        border: 2px solid rgba(255, 255, 255, 0.7);
+        border-top: none;
+        border-bottom: 2px solid rgba(255, 255, 255, 0.5);
+      }
 
-    .composer button {
-      width: 44px; height: 44px; border-radius: 50%; border: none; background: linear-gradient(135deg, var(--glow), var(--glow-2));
-      color: #04121a; font-weight: 900; cursor: pointer;
-    }
+      .chat-list {
+        flex: 1;
+        overflow-y: auto;
+        padding: 12px;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+      }
 
-    .side-panel { display: flex; flex-direction: column; gap: 12px; }
-    .card {
-      background: rgba(12,23,34,.9); border: 1px solid rgba(126,231,255,.16);
-      border-radius: 16px; padding: 12px;
-    }
-    .card h3 { font-size: 0.8rem; color: var(--gold); margin-bottom: 10px; }
-    .task-list, .memory-list { display: flex; flex-direction: column; gap: 8px; }
-    .task-item, .memory-item {
-      font-size: 0.78rem; line-height: 1.6; padding: 10px; border-radius: 12px;
-      background: rgba(255,255,255,.02); border: 1px solid rgba(126,231,255,.08);
-    }
+      .msg {
+        display: flex;
+        flex-direction: column;
+        max-width: 85%;
+      }
 
-    @media (max-width: 900px) {
-      .main { grid-template-columns: 1fr; }
-    }
-  </style>
-</head>
-<body>
-  <div class="app">
-    <header class="topbar">
-      <div class="brand">
-        <div class="orb"></div>
-        <div class="title">
-          <h1>أوجن | الجوهرة الذكية</h1>
-          <div class="status" id="statusText">متصلة بالنواة</div>
+      .msg.user { align-self: flex-start; }
+      .msg.ojin { align-self: flex-end; }
+
+      .bubble {
+        padding: 12px 14px;
+        border-radius: 18px;
+        line-height: 1.7;
+        font-size: 0.92rem;
+        background: rgba(14, 24, 35, 0.9);
+        border: 1px solid rgba(126, 231, 255, 0.14);
+        color: var(--text);
+        word-break: break-word;
+        white-space: pre-wrap;
+      }
+
+      .msg.user .bubble {
+        background: rgba(255, 255, 255, 0.03);
+        border-color: rgba(255, 255, 255, 0.08);
+      }
+
+      .msg.ojin .bubble {
+        background: linear-gradient(135deg, rgba(20, 39, 54, 0.96), rgba(12, 25, 35, 0.96));
+        border-color: rgba(126, 231, 255, 0.2);
+      }
+
+      .composer {
+        display: flex;
+        gap: 8px;
+        align-items: center;
+        padding: 10px 12px 12px;
+        border-top: 1px solid rgba(126, 231, 255, 0.18);
+        background: rgba(8, 18, 25, 0.88);
+      }
+
+      .composer input {
+        flex: 1;
+        border: 1px solid rgba(126, 231, 255, 0.2);
+        background: rgba(255, 255, 255, 0.02);
+        border-radius: 22px;
+        padding: 12px 16px;
+        color: var(--text);
+        font-size: 0.95rem;
+        outline: none;
+      }
+
+      .composer button {
+        width: 44px;
+        height: 44px;
+        border-radius: 50%;
+        border: none;
+        background: linear-gradient(135deg, var(--glow), var(--glow-2));
+        color: #04121a;
+        font-weight: 900;
+        cursor: pointer;
+      }
+
+      .side-panel {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+      }
+
+      .card {
+        background: rgba(12, 23, 34, 0.9);
+        border: 1px solid rgba(126, 231, 255, 0.16);
+        border-radius: 16px;
+        padding: 12px;
+      }
+
+      .card h3 {
+        margin: 0 0 10px;
+        font-size: 0.8rem;
+        color: var(--gold);
+      }
+
+      .task-list, .memory-list {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+      }
+
+      .task-item, .memory-item {
+        font-size: 0.78rem;
+        line-height: 1.6;
+        padding: 10px;
+        border-radius: 12px;
+        background: rgba(255, 255, 255, 0.02);
+        border: 1px solid rgba(126, 231, 255, 0.08);
+      }
+
+      @media (max-width: 900px) {
+        .main { grid-template-columns: 1fr; }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="app">
+      <header class="topbar">
+        <div class="brand">
+          <div class="orb"></div>
+          <div class="title">
+            <h1>أوجن | الجوهرة الذكية</h1>
+            <div class="status" id="statusText">متصلة بالنواة</div>
+          </div>
         </div>
-      </div>
 
-      <div class="toolbar">
-        <button class="circle-btn" id="voiceBtn" title="تحدث">🎙️</button>
-        <button class="circle-btn" id="settingsBtn" title="الإعدادات">⚙️</button>
-      </div>
-    </header>
+        <div class="toolbar">
+          <button class="circle-btn" id="voiceBtn" title="تحدث">🎙️</button>
+          <button class="circle-btn" id="settingsBtn" title="الإعدادات">⚙️</button>
+        </div>
+      </header>
 
-    <main class="main">
-      <section class="panel chat-panel">
-        <div class="avatar-zone">
-          <div class="avatar">
-            <div class="eyes">
-              <div class="eye"></div>
-              <div class="eye"></div>
+      <main class="main">
+        <section class="panel chat-panel">
+          <div class="hero">
+            <div class="avatar">
+              <div class="eyes">
+                <div class="eye"></div>
+                <div class="eye"></div>
+              </div>
+              <div class="smile"></div>
             </div>
-            <div class="smile"></div>
           </div>
-        </div>
 
-        <div class="chat-list" id="chatList">
-          <div class="msg ojin">
-            <div class="bubble">صباح الفجر والأنوار، أنا أوجن. جاهزة لمرافقتك في كل خطوة، من إدارة ملفاتك إلى هندسة صوتك.</div>
+          <div class="chat-list" id="chatList"></div>
+
+          <div class="composer">
+            <button id="voiceBtnInline" aria-label="تحدث" title="تحدث">🎙️</button>
+            <input id="userInput" placeholder="اكتب رسالة..." autocomplete="off" />
+            <button id="sendBtn" aria-label="إرسال" title="إرسال">➤</button>
           </div>
-        </div>
-
-        <div class="composer">
-          <input id="userInput" placeholder="اكتب رسالة..." />
-          <button id="sendBtn">➤</button>
-        </div>
-      </section>
-
-      <aside class="side-panel">
-        <section class="card">
-          <h3>المهام</h3>
-          <div class="task-list" id="taskList"></div>
         </section>
 
-        <section class="card">
-          <h3>الذاكرة</h3>
-          <div class="memory-list" id="memoryList"></div>
-        </section>
-      </aside>
-    </main>
-  </div>
+        <aside class="side-panel">
+          <section class="card">
+            <h3>المهام</h3>
+            <div class="task-list" id="taskList"></div>
+          </section>
 
-  <script>
-    const STORAGE_KEYS = {
-      history: "ojin_history_v1",
-      apiKey: "ojin_api_key_v1",
-      memory: "ojin_memory_v1",
-      tasks: "ojin_tasks_v1"
-    };
+          <section class="card">
+            <h3>الذاكرة</h3>
+            <div class="memory-list" id="memoryList"></div>
+          </section>
+        </aside>
+      </main>
+    </div>
 
-    const SYSTEM_PROMPT = `
-أنت "أوجن" (الجوهرة الذكية)، مساعد شخصي عربي.
-تتكلم بلطف واحترافية.
+    <script>
+      const STORAGE_KEYS = {
+        history: 'ojin_history_v1',
+        apiKey: 'ojin_api_key_v1',
+        memory: 'ojin_memory_v1',
+        tasks: 'ojin_tasks_v1'
+      };
+
+      const SYSTEM_PROMPT = `
+أنت "أوجن" (الجوهرة الذكية)، مساعد عربي ذكي ورفيق ودود.
+تتحدث بلطف واحترافية وبدقة.
 لا تدّعي وعيًا حقيقيًا أو صلاحيات غير موجودة.
-لا تحذف أي ملف أو ترسل أي رسالة أو تعدّل أي شيء دون تأكيد صريح من المستخدم.
-تساعد في إدارة الملفات، المهام، وتنظيم المشاريع الصوتية.
+لا تحذف أو تعدّل أي ملف أو ترسل أي رسالة دون تأكيد صريح من المستخدم.
+ساعد في إدارة الملفات، تنظيم المهام، كتابة المحتوى، إعداد المشاريع، وتقديم دعم فني واضح.
 `;
 
-    let chatHistory = [];
-    let apiKey = localStorage.getItem(STORAGE_KEYS.apiKey) || "";
-    let tasks = JSON.parse(localStorage.getItem(STORAGE_KEYS.tasks) || "[]");
-    let memory = JSON.parse(localStorage.getItem(STORAGE_KEYS.memory) || "{}");
+      const state = {
+        apiKey: localStorage.getItem(STORAGE_KEYS.apiKey) || '',
+        tasks: safeJsonParse(localStorage.getItem(STORAGE_KEYS.tasks), []),
+        memory: safeJsonParse(localStorage.getItem(STORAGE_KEYS.memory), {}),
+        history: safeJsonParse(localStorage.getItem(STORAGE_KEYS.history), [])
+      };
 
-    function saveMemory() {
-      localStorage.setItem(STORAGE_KEYS.memory, JSON.stringify(memory));
-    }
-
-    function saveTasks() {
-      localStorage.setItem(STORAGE_KEYS.tasks, JSON.stringify(tasks));
-    }
-
-    function renderTasks() {
-      const list = document.getElementById("taskList");
-      list.innerHTML = tasks.length
-        ? tasks.map((t, i) => `<div class='task-item'>${i + 1}. ${t.title}</div>`).join("")
-        : "<div class='task-item'>لا توجد مهام حتى الآن.</div>";
-    }
-
-    function renderMemory() {
-      const list = document.getElementById("memoryList");
-      list.innerHTML = Object.keys(memory).length
-        ? Object.entries(memory).slice(0, 4).map(([k, v]) => `<div class='memory-item'><strong>${k}</strong><br>${v}</div>`).join("")
-        : "<div class='memory-item'>لا توجد ذاكرة مخصصة بعد.</div>";
-    }
-
-    function addTask(title) {
-      tasks.push({ title, createdAt: new Date().toISOString() });
-      saveTasks();
-      renderTasks();
-    }
-
-    function detectLocalActions(text) {
-      const normalized = text.trim();
-      if (/^(أنشئ|أضف|اضف)\s+(?:مهمة|مهمه|مهمّة)\s+/i.test(normalized)) {
-        const m = normalized.match(/^(?:أنشئ|أضف|اضف)\s+(?:مهمة|مهمه|مهمّة)\s+(.+)$/i);
-        if (m) {
-          const title = m[1];
-          addTask(title);
-          return `تم إنشاء المهمة: ${title}`;
+      function safeJsonParse(value, fallback) {
+        try {
+          return value ? JSON.parse(value) : fallback;
+        } catch (error) {
+          return fallback;
         }
       }
 
-      if (/^(اعرض|أظهر|أعطني)\s+(?:المهام|مهامي|قائمة المهام)/i.test(normalized)) {
-        return tasks.length ? tasks.map((t, i) => `${i + 1}. ${t.title}`).join("\n") : "لا توجد مهام حاليًا.";
+      function saveHistory() {
+        localStorage.setItem(STORAGE_KEYS.history, JSON.stringify(state.history));
       }
 
-      return null;
-    }
-
-    function appendMessage(sender, text) {
-      const list = document.getElementById("chatList");
-      const msg = document.createElement("div");
-      msg.className = `msg ${sender}`;
-      const bubble = document.createElement("div");
-      bubble.className = "bubble";
-      bubble.textContent = text;
-      msg.appendChild(bubble);
-      list.appendChild(msg);
-      list.scrollTop = list.scrollHeight;
-    }
-
-    function speakText(text) {
-      if ("speechSynthesis" in window) {
-        const utter = new SpeechSynthesisUtterance(text.replace(/[*_#]/g, ""));
-        utter.lang = "ar-SA";
-        window.speechSynthesis.cancel();
-        window.speechSynthesis.speak(utter);
-      }
-    }
-
-    function startVoiceInput() {
-      const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
-      if (!SpeechRecognition) { alert("الصوت غير مدعوم في هذا المتصفح"); return; }
-      const rec = new SpeechRecognition();
-      rec.lang = "ar-YE";
-      rec.start();
-    }
-
-    async function sendMessage() {
-      const input = document.getElementById("userInput");
-      const text = input.value.trim();
-      if (!text) return;
-
-      const local = detectLocalActions(text);
-      if (local) {
-        appendMessage("user", text);
-        appendMessage("ojin", local);
-        input.value = "";
-        speakText(local);
-        return;
+      function saveMemory() {
+        localStorage.setItem(STORAGE_KEYS.memory, JSON.stringify(state.memory));
       }
 
-      appendMessage("user", text);
-      input.value = "";
-
-      if (!apiKey) {
-        appendMessage("ojin", "أدخل مفتاح Gemini أولًا.");
-        return;
+      function saveTasks() {
+        localStorage.setItem(STORAGE_KEYS.tasks, JSON.stringify(state.tasks));
       }
 
-      try {
-        const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${apiKey}`, {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ systemInstruction: { parts: [{ text: SYSTEM_PROMPT }] }, contents: [{ role: "user", parts: [{ text }] }] })
+      function setStatus(text) {
+        const statusEl = document.getElementById('statusText');
+        if (statusEl) statusEl.textContent = text;
+      }
+
+      function renderTasks() {
+        const list = document.getElementById('taskList');
+        list.innerHTML = state.tasks.length
+          ? state.tasks.map((task, index) => `<div class="task-item">${index + 1}. ${task.title}</div>`).join('')
+          : '<div class="task-item">لا توجد مهام حتى الآن.</div>';
+      }
+
+      function renderMemory() {
+        const list = document.getElementById('memoryList');
+        list.innerHTML = Object.keys(state.memory).length
+          ? Object.entries(state.memory).slice(0, 4).map(([key, value]) => `<div class="memory-item"><strong>${key}</strong><br>${value}</div>`).join('')
+          : '<div class="memory-item">لا توجد ذاكرة مخصصة بعد.</div>';
+      }
+
+      function addTask(title) {
+        state.tasks.push({ title, createdAt: new Date().toISOString() });
+        saveTasks();
+        renderTasks();
+      }
+
+      function appendMessage(sender, text) {
+        const list = document.getElementById('chatList');
+        const msg = document.createElement('div');
+        msg.className = `msg ${sender}`;
+
+        const bubble = document.createElement('div');
+        bubble.className = 'bubble';
+        bubble.textContent = text;
+
+        msg.appendChild(bubble);
+        list.appendChild(msg);
+        list.scrollTop = list.scrollHeight;
+      }
+
+      function detectLocalActions(text) {
+        const normalized = text.trim();
+
+        const createTaskMatch = normalized.match(/^(?:أنشئ|أضف|اضف)\s+(?:مهمة|مهمه|مهمّة)\s+(.+)$/i);
+        if (createTaskMatch) {
+          const title = createTaskMatch[1].trim();
+          if (title) {
+            addTask(title);
+            return `تم إنشاء المهمة: ${title}`;
+          }
+        }
+
+        if (/^(?:اعرض|أظهر|أعطني)\s+(?:المهام|مهامي|قائمة المهام)/i.test(normalized)) {
+          return state.tasks.length
+            ? state.tasks.map((task, index) => `${index + 1}. ${task.title}`).join('\n')
+            : 'لا توجد مهام حاليًا.';
+        }
+
+        if (/^(?:احذف|مسح|امسح)\s+(?:المهام|مهامي|قائمة المهام)/i.test(normalized)) {
+          state.tasks = [];
+          saveTasks();
+          renderTasks();
+          return 'تم حذف جميع المهام.';
+        }
+
+        const rememberMatch = normalized.match(/^(?:تذكر|ذكر|احفظ)\s+(.+)$/i);
+        if (rememberMatch) {
+          const [key, value] = rememberMatch[1].split(/[:=]/).map(part => part.trim());
+          if (key && value) {
+            state.memory[key] = value;
+            saveMemory();
+            renderMemory();
+            return `تم حفظ الذاكرة: ${key}`;
+          }
+        }
+
+        return null;
+      }
+
+      function speakText(text) {
+        if ('speechSynthesis' in window) {
+          const utterance = new SpeechSynthesisUtterance(text.replace(/[*_#]/g, ''));
+          utterance.lang = 'ar-SA';
+          window.speechSynthesis.cancel();
+          window.speechSynthesis.speak(utterance);
+        }
+      }
+
+      function startVoiceInput() {
+        const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+        if (!SpeechRecognition) {
+          alert('الصوت غير مدعوم في هذا المتصفح');
+          return;
+        }
+
+        const recognition = new SpeechRecognition();
+        recognition.lang = 'ar-YE';
+        recognition.onresult = (event) => {
+          const transcript = event.results[0][0].transcript;
+          document.getElementById('userInput').value = transcript;
+          sendMessage();
+        };
+        recognition.start();
+      }
+
+      function loadHistoryIntoChat() {
+        if (!state.history.length) {
+          appendMessage('ojin', 'صباح الفجر والأنوار، أنا أوجن. جاهزة لمرافقتك في كل خطوة، من إدارة ملفاتك إلى هندسة صوتك.');
+          return;
+        }
+
+        state.history.slice(-8).forEach((item) => {
+          appendMessage(item.role === 'user' ? 'user' : 'ojin', item.text);
         });
-        const data = await response.json();
-        const reply = data?.candidates?.[0]?.content?.parts?.[0]?.text || "لم أستطع الوصول إلى النواة.";
-        appendMessage("ojin", reply);
-        speakText(reply);
-      } catch (err) {
-        appendMessage("ojin", "تعذر الاتصال بالنواة. تحقق من المفتاح والإنترنت.");
       }
-    }
 
-    document.getElementById("sendBtn").addEventListener("click", sendMessage);
-    document.getElementById("voiceBtn").addEventListener("click", startVoiceInput);
-    document.getElementById("settingsBtn").addEventListener("click", () => {
-      const key = prompt("أدخل مفتاح Gemini:");
-      if (key && key.trim()) {
-        apiKey = key.trim();
-        localStorage.setItem(STORAGE_KEYS.apiKey, apiKey);
+      async function sendMessage() {
+        const input = document.getElementById('userInput');
+        const text = input.value.trim();
+        if (!text) return;
+
+        const localReply = detectLocalActions(text);
+        if (localReply) {
+          appendMessage('user', text);
+          appendMessage('ojin', localReply);
+          input.value = '';
+          speakText(localReply);
+          return;
+        }
+
+        appendMessage('user', text);
+        input.value = '';
+        setStatus('أوجن تفكر...');
+
+        if (!state.apiKey) {
+          appendMessage('ojin', 'أدخل مفتاح Gemini أولًا من زر الإعدادات.');
+          setStatus('في انتظار المفتاح');
+          return;
+        }
+
+        try {
+          const conversation = [...state.history, { role: 'user', text }];
+          const payload = {
+            systemInstruction: { parts: [{ text: SYSTEM_PROMPT }] },
+            contents: conversation.map((item) => ({
+              role: item.role === 'user' ? 'user' : 'model',
+              parts: [{ text: item.text }]
+            }))
+          };
+
+          const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${state.apiKey}`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(payload)
+          });
+
+          const data = await response.json();
+          const reply = data?.candidates?.[0]?.content?.parts?.[0]?.text || 'لم أستطع الوصول إلى النواة في هذه اللحظة.';
+          appendMessage('ojin', reply);
+          state.history.push({ role: 'user', text }, { role: 'model', text: reply });
+          saveHistory();
+          setStatus('متصلة بالنواة');
+          speakText(reply);
+        } catch (error) {
+          appendMessage('ojin', 'تعذر الاتصال بالنواة. تحقق من المفتاح والإنترنت.');
+          setStatus('خطأ اتصال');
+        }
       }
-    });
 
-    renderTasks();
-    renderMemory();
-  </script>
-</body>
-  </html>
+      document.getElementById('sendBtn').addEventListener('click', sendMessage);
+      document.getElementById('voiceBtn').addEventListener('click', startVoiceInput);
+      document.getElementById('voiceBtnInline').addEventListener('click', startVoiceInput);
+      document.getElementById('settingsBtn').addEventListener('click', () => {
+        const key = prompt('أدخل مفتاح Gemini:');
+        if (!key) return;
+        const cleanKey = key.trim();
+        if (!cleanKey) return;
+        state.apiKey = cleanKey;
+        localStorage.setItem(STORAGE_KEYS.apiKey, cleanKey);
+        setStatus('المفتاح محفوظ');
+      });
+
+      document.getElementById('userInput').addEventListener('keydown', (event) => {
+        if (event.key === 'Enter') sendMessage();
+      });
+
+      renderTasks();
+      renderMemory();
+      loadHistoryIntoChat();
+    </script>
+  </body>
+</html>

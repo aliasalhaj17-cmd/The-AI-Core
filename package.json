@@ -1,26 +1,9 @@
 {
-  "name": "the-ai-core",
-  "version": "1.0.0",
+  "name": "ojin-core",
   "private": true,
-  "description": "Ojin - الجوهرة الذكية، مساعد عربي صوتي ومتعدد الوسائط",
+  "version": "1.0.0",
   "scripts": {
-    "android:add": "npx cap add android",
-    "android:sync": "npx cap sync android",
-    "android:open": "npx cap open android",
-    "android:build": "cd android && ./gradlew assembleDebug"
-  },
-  "dependencies": {
-    "@capacitor/android": "7.4.3",
-    "@capacitor/app": "7.1.0",
-    "@capacitor/browser": "7.0.2",
-    "@capacitor/clipboard": "7.0.2",
-    "@capacitor/core": "7.4.3",
-    "@capacitor/filesystem": "7.1.0",
-    "@capacitor/haptics": "7.0.2",
-    "@capacitor/local-notifications": "7.0.2",
-    "@capacitor/preferences": "7.0.2"
-  },
-  "devDependencies": {
-    "@capacitor/cli": "7.4.3"
+    "dev": "python3 -m http.server 8000",
+    "build": "echo 'Static web app ready. Use the GitHub Actions workflow to build Android APK.'"
   }
 }

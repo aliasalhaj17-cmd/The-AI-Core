@@ -1,7 +1,12 @@
-```json
 {
   "short_name": "أوجن",
-  "name": "أوجن: الكيان الذكي",
+  "name": "أوجن: الجوهرة الذكية",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#05121b",
+  "theme_color": "#7ee7ff",
+  "scope": "./",
+  "orientation": "portrait",
   "icons": [
     {
       "src": "https://cdn-icons-png.flaticon.com/512/2103/2103633.png",
@@ -9,11 +14,5 @@
       "type": "image/png",
       "purpose": "any maskable"
     }
-  ],
-  "start_url": "./index.html",
-  "display": "standalone",
-  "background_color": "#050505",
-  "theme_color": "#d4af37",
-  "scope": "."
+  ]
 }
-```
