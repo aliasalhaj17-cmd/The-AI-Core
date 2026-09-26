@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="ojin_primary">#071b2a</color>
+    <color name="ojin_primary_dark">#030d16</color>
+    <color name="ojin_accent">#7ee7ff</color>
+    <color name="ojin_surface">#0b1620</color>
+</resources>
