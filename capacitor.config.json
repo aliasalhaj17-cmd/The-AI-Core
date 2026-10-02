@@ -1,0 +1,11 @@
+```json
+{
+  "appId": "com.ojin.core",
+  "appName": "Ojin",
+  "webDir": "www",
+  "bundledWebRuntime": false,
+  "android": {
+    "allowMixedContent": false
+  }
+}
+```
